@@ -40,13 +40,26 @@ class Game
 
   def play_game(number_of_users, dice_output)
     return if !number_of_users || number_of_users < 2
+
     bank = Bank.new
+
+    users = set_users(number_of_users)
+
+    execute_moves(dice_output, users, bank)
+
+    show_result(users, bank)
+  end
+
+  def set_users(number_of_users)
     users = []
     number_of_users.times do |i|
       new_user = User.new(i+1)
       users.push(new_user)
     end
+    users
+  end
 
+  def execute_moves(dice_output, users, bank)
     chance = 0
 
     dice_output.each_with_index do |val, index|
@@ -54,7 +67,9 @@ class Game
       user.play_move(val, @cell_objects, bank)
       chance = (chance + 1) % users.length
     end
+  end
 
+  def show_result(users, bank)
     users.each do |user|
       puts "user#{user.id}: money: #{user.current_money}, asset: #{user.asset_money}"
     end
