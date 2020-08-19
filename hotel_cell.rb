@@ -25,6 +25,12 @@ class HotelCell < Cell
     end
   end
 
+  def status
+    @status
+  end
+
+  private
+
   def buy(user, bank)
     value = STATUSES[@status][:value]
     if user.can_afford(value)
@@ -53,16 +59,6 @@ class HotelCell < Cell
       bank.add_money(value)
       @status = new_status
     end
-  end
-
-  def status
-    @status
-  end
-
-  private
-
-  def can_afford(value, user)
-    user.current_money >= value
   end
 
 end
