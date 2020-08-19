@@ -22,19 +22,15 @@ class Game
   def intialize_cell_objects(cell_array)
     @cell_objects = []
     cell_array.each_with_index do |cell, index|
+      new_cell = nil
       if cell == 'J'
-        cell = JailCell.new
-        @cell_objects.push(cell)
+        new_cell = JailCell.new
       elsif cell == 'L'
-        cell = LotteryCell.new
-        @cell_objects.push(cell)
+        new_cell = LotteryCell.new
       elsif cell == 'H'
-        cell = HotelCell.new(index)
-        @cell_objects.push(cell)
-      else
-        @cell_objects.push(nil)
+        new_cell = HotelCell.new(index)
       end
-
+      @cell_objects.push(new_cell)
     end
   end
 
